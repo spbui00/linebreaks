@@ -22,4 +22,6 @@
     - we should remove '#' since they are not really part of the text for this task (example looks like plain text rather than markdown)
     - \xa0 is non breaking space, we should replace it with a normal space
     - some docs have tables! These are not natural languages so I suppose we should exclude them for this task (there are not many of these)
-    - I use AI agent to generate regex to clean these texts
+    - lets do NFKC to clean text 
+    - also I will add tests to make sure this cleaning is done correctly
+- my lsp is killing me, ill add type hints
