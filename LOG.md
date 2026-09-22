@@ -25,3 +25,12 @@
     - lets do NFKC to clean text 
     - also I will add tests to make sure this cleaning is done correctly
 - my lsp is killing me, ill add type hints
+- ill do google colab for the gpu, T4 should be enough. Task deliberately says they dont care about SOTA, so I can do smaller models and show my own metric with baseline rather than create SOTA
+- thinking about which base model to finetune over
+    - we defo need models that are cased since that is an important feature for the newline sometimes.
+    - ill start woith some pipeline that is fast so I can detect any bugs with the code and then change the model latter.
+    - lets use distilled bert cased
+    - add a linear layer on top to predict the labels (at the time of writing this I saw Jev, wonder if it could be suitable for this task :D)
+- with context length of just 512, actually ust 510 because of [CLS] and [SEP], we need to chunk the docs. We also need to preserve the context for predicting the labels, ill go for overlapping windows
+- the tokenizer removes \n so i have to replace it with a special token, use "⏎"
+- how much overlap? i mean this task probably doesnt need context that is too far away. The worst case scenario is the 

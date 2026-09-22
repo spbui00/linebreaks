@@ -1,0 +1,19 @@
+# generated data and checkpoints -- rebuild with `python -m src.dataset`
+data/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# tooling caches
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# hf / torch caches, if they ever land in-tree
+.cache/
+
+# os
+.DS_Store

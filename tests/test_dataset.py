@@ -2,7 +2,7 @@ import json
 import itertools
 import pytest
 
-from src.dataset import clean, LABEL_ID, clean_docs, corrupt, label, render
+from src.dataset import DATA, build, clean, clean_docs, corrupt, examples, label, render
 
 BODY = "Filler sentence to clear the length floor. " * 20
 
@@ -103,8 +103,6 @@ def test_round_trip_holds_on_the_real_corpus():
 
 
 def test_splits_are_disjoint_by_document():
-    from src.dataset import DATA, build
-
     build(seed=0)
     docs = {name: {json.loads(l)["text"] for l in (DATA / f"{name}.jsonl").open()}
             for name in ("train", "val", "test")}
@@ -114,8 +112,6 @@ def test_splits_are_disjoint_by_document():
 
 
 def test_seeded_examples_are_reproducible_unseeded_are_not():
-    from src.dataset import examples
-
     a = [e["text"] for e in itertools.islice(examples("val", seed=1), 5)]
     b = [e["text"] for e in itertools.islice(examples("val", seed=1), 5)]
     c = [e["text"] for e in itertools.islice(examples("val"), 5)]
@@ -124,8 +120,6 @@ def test_seeded_examples_are_reproducible_unseeded_are_not():
 
 
 def test_examples_stay_labelled_correctly():
-    from src.dataset import examples
-
     for ex in itertools.islice(examples("val", seed=0), 20):
         assert len(ex["tokens"]) == len(ex["labels"])
         assert "".join(ex["tokens"]) == "".join(ex["text"].split())
