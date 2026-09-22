@@ -33,4 +33,5 @@
     - add a linear layer on top to predict the labels (at the time of writing this I saw Jev, wonder if it could be suitable for this task :D)
 - with context length of just 512, actually ust 510 because of [CLS] and [SEP], we need to chunk the docs. We also need to preserve the context for predicting the labels, ill go for overlapping windows
 - the tokenizer removes \n so i have to replace it with a special token, use "⏎"
-- how much overlap? i mean this task probably doesnt need context that is too far away. The worst case scenario is the 
+- how much overlap? i mean this task probably doesnt need context that is too far away. The worst case scenario is the token that is in middle of the overlap, has guaranteed context of STRIDE/2, so larger STRIDE means better worse case context, at what cost?
+    - a doc of N tokens will require N/(MAX_LEN-STRIDE) windows, each processing MAX_LEN tokens, so: N/(MAX_LEN-STRIDE) * MAX_LEN = N * MAX_LEN/(MAX_LEN-STRIDE) tokens processed
